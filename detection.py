@@ -22,7 +22,7 @@ for imagefile in imagefiles:
     # Apply Canny edge detection
     edges = cv2.Canny(blur, 0.4*255, 0.4*0.4*255, imgcopy, 3)
     # Apply Hough line detection
-    lines = cv2.HoughLinesP(edges, 1, pi/720, 150, None, min(h,w)/10, min(h,w)/50);
+    lines = cv2.HoughLinesP(edges, 1, pi/720, 150, None, min(h,w)/8, min(h,w)/50);
 
     # For later use in shape detection
     thirdleft = w/3
@@ -30,8 +30,8 @@ for imagefile in imagefiles:
     thirdup = h/3
     thirddown = h*2/3
     n = 10
-    xvalues = random.sample(thirdleft:thirdright,n)
-    yvalues = random.sample(thirdup:thirddown,n)
+    xvalues = random.sample(range(thirdleft,thirdright),n)
+    yvalues = random.sample(range(thirdup,thirddown),n)
 
     for line in lines[0]:
         # Find points
@@ -57,6 +57,7 @@ for imagefile in imagefiles:
         cv2.line(img, pt1, pt2, (0,0,255), 3)   #actual
 
         # SHAPE DETECTION
+
 
     # Write image (with lines) and edges to jpg
     outfile = imagefile[:-4] + "_out.jpg"
